@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
+  <rect width="64" height="64" rx="14" fill="#FFFFFF"/>
+  <!-- Medical Cross with Pulse Wave Icon -->
+  <g transform="translate(32, 32)">
+    <!-- Left Half of Cross (Emerald Green #008768) -->
+    <path 
+      d="M -7 -20 L -7 -7 L -20 -7 L -20 7 L -7 7 L -7 20 L 0 20 L 0 -20 Z" 
+      fill="none" 
+      stroke="#008768" 
+      stroke-width="4" 
+      stroke-linejoin="miter"
+      stroke-linecap="square"
+    />
+    <!-- Right Half of Cross (Navy Blue #003865) -->
+    <path 
+      d="M 0 -20 L 7 -20 L 7 -7 L 20 -7 L 20 7 L 7 7 L 7 20 L 0 20 Z" 
+      fill="none" 
+      stroke="#003865" 
+      stroke-width="4" 
+      stroke-linejoin="miter"
+      stroke-linecap="square"
+    />
+    <!-- Central Heartbeat / ECG Wave -->
+    <path 
+      d="M -23 0 L -8 0 L -4 4 L 0 -13 L 4 11 L 8 0 L 23 0" 
+      fill="none" 
+      stroke="#003865" 
+      stroke-width="3.5" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    />
+  </g>
+</svg>

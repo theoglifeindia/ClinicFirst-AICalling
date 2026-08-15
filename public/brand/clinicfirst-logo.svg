@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 140" width="100%" height="100%">
+  <!-- Medical Cross with Pulse Wave Icon (Top Center) -->
+  <g transform="translate(260, 26)">
+    <!-- Left Half of Cross (Emerald Green #008768) -->
+    <path 
+      d="M -7 -20 L -7 -7 L -20 -7 L -20 7 L -7 7 L -7 20 L 0 20 L 0 -20 Z" 
+      fill="none" 
+      stroke="#008768" 
+      stroke-width="3.6" 
+      stroke-linejoin="miter"
+      stroke-linecap="square"
+    />
+    <!-- Right Half of Cross (Navy Blue #003865) -->
+    <path 
+      d="M 0 -20 L 7 -20 L 7 -7 L 20 -7 L 20 7 L 7 7 L 7 20 L 0 20 Z" 
+      fill="none" 
+      stroke="#003865" 
+      stroke-width="3.6" 
+      stroke-linejoin="miter"
+      stroke-linecap="square"
+    />
+    <!-- Central Heartbeat / ECG Wave -->
+    <path 
+      d="M -23 0 L -8 0 L -4 4 L 0 -13 L 4 11 L 8 0 L 23 0" 
+      fill="none" 
+      stroke="#003865" 
+      stroke-width="3.2" 
+      stroke-linecap="round" 
+      stroke-linejoin="round"
+    />
+  </g>
+
+  <!-- Wordmark CLINICFiRST -->
+  <g style="font-family: 'Outfit', 'Montserrat', 'Inter', system-ui, -apple-system, sans-serif; font-size: 68px; font-weight: 500; letter-spacing: 0.02em;">
+    <!-- CLINIC in Emerald Green -->
+    <text x="32" y="116" fill="#008768">CLINIC</text>
+    
+    <!-- FiRST in Deep Navy Blue -->
+    <text x="272" y="116" fill="#003865">F<tspan font-size="64" dy="0" dx="-2">i</tspan><tspan font-size="68" dy="0" dx="0">RST</tspan></text>
+  </g>
+</svg>
