@@ -28,6 +28,7 @@ import { useTheme } from '../../theme/ThemeContext';
 
 export type AppTab =
   | 'dashboard'
+  | 'receptionist'
   | 'appointments'
   | 'doctors'
   | 'patients'
@@ -85,6 +86,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 
   const activeModules = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { id: 'receptionist', label: 'AI Receptionist', icon: Bot, isLiveVoice: true },
     { id: 'appointments', label: 'Appointments', icon: Calendar },
     { id: 'doctors', label: 'Doctors & Shifts', icon: Stethoscope },
     { id: 'patients', label: 'Patients Directory', icon: Users },
@@ -120,22 +122,22 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-[#F7F4EC] dark:bg-[#0A1325] flex flex-col md:flex-row text-slate-800 dark:text-slate-100 font-sans transition-colors duration-200">
+    <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#0A1128] flex flex-col md:flex-row text-slate-900 dark:text-[#F0F4F8] font-sans transition-colors duration-200">
       {/* Mobile Header */}
-      <div className="md:hidden bg-[#FFFEFA] dark:bg-slate-900 border-b border-[#E8E3D7] dark:border-slate-800 px-4 py-3 flex items-center justify-between sticky top-0 z-40 shadow-2xs">
+      <div className="md:hidden bg-white dark:bg-[#101F3D] border-b border-slate-200 dark:border-[#1C2E4C] px-4 py-3 flex items-center justify-between sticky top-0 z-40 shadow-xs">
         <ClinicFirstLogo size="sm" />
         <div className="flex items-center gap-2">
           <ThemeSwitcher compact />
           <button
             onClick={onOpenBooking}
-            className="p-2 theme-btn-primary rounded-lg text-xs font-bold transition-colors cursor-pointer"
+            className="p-2 bg-[#C43D27] hover:bg-[#B03420] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer"
             aria-label="Book Appointment"
           >
             <PlusCircle className="w-4 h-4" />
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded-lg hover:bg-[#F2ECE1] dark:hover:bg-slate-800"
+            className="p-2 text-slate-600 hover:text-slate-900 dark:text-slate-300 dark:hover:text-white rounded-lg hover:bg-[#FAF8F3] dark:hover:bg-[#172B52]"
             aria-label="Toggle Navigation"
           >
             {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -145,12 +147,12 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 
       {/* Sidebar Navigation */}
       <aside
-        className={`fixed md:sticky top-0 z-30 h-screen w-64 bg-[#FFFEFA] dark:bg-slate-900 border-r border-[#E8E3D7] dark:border-slate-800 flex flex-col shrink-0 transition-transform duration-200 ease-in-out overflow-hidden shadow-xs ${
+        className={`fixed md:sticky top-0 z-30 h-screen w-64 bg-white dark:bg-[#101F3D] border-r border-slate-200 dark:border-[#1C2E4C] flex flex-col shrink-0 transition-transform duration-200 ease-in-out overflow-hidden shadow-xs ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
         {/* Pinned Top Brand Header */}
-        <div className="shrink-0 p-5 border-b border-[#EFEBE0] dark:border-slate-800/80 bg-[#FFFEFA] dark:bg-slate-900">
+        <div className="shrink-0 p-5 border-b border-slate-100 dark:border-[#1C2E4C] bg-white dark:bg-[#101F3D]">
           <div className="p-1 rounded-lg">
             <ClinicFirstLogo size="md" />
           </div>
@@ -159,9 +161,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           </div>
 
           {/* Clinic Context Badge */}
-          <div className="mt-3.5 p-2.5 rounded-xl bg-[#F5F2E9] dark:bg-slate-800/60 border border-[#E8E3D7] dark:border-slate-700/60 flex items-center justify-between">
+          <div className="mt-3.5 p-2.5 rounded-xl bg-[#FAF8F3] dark:bg-[#172B52] border border-slate-200 dark:border-[#243B53] flex items-center justify-between">
             <div>
-              <div className="text-xs font-bold text-slate-900 dark:text-slate-100 truncate">Demo Clinic</div>
+              <div className="text-xs font-bold text-slate-900 dark:text-white truncate">Demo Clinic</div>
               <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">Nagpur • Asia/Kolkata</div>
             </div>
             <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-2xs" title="System Operational" />
@@ -169,7 +171,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         </div>
 
         {/* Scrollable Navigation Menu Sections */}
-        <div className="flex-1 overflow-y-auto min-h-0 px-3 py-4 space-y-6">
+        <div className="flex-1 overflow-y-auto min-h-0 px-3 py-4 space-y-6 bg-white dark:bg-[#101F3D]">
           {/* Active Clinic Operations */}
           <div>
             <div className="px-3 text-[10px] font-bold font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
@@ -186,14 +188,14 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                     onClick={() => handleTabClick(tab.id as AppTab)}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
                       isActive
-                        ? 'theme-btn-primary shadow-2xs font-bold'
-                        : 'text-slate-700 dark:text-slate-300 hover:bg-[#F2ECE1] dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                        ? 'bg-[#C43D27] text-white shadow-xs font-bold'
+                        : 'text-slate-700 dark:text-slate-300 hover:bg-[#FAF8F3] dark:hover:bg-[#172B52] hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
                       <Icon
                         className={`w-4 h-4 ${
-                          isActive ? 'text-white' : 'text-slate-400 dark:text-slate-400'
+                          isActive ? 'text-white' : 'text-slate-500 dark:text-slate-400'
                         }`}
                       />
                       <span>{tab.label}</span>
@@ -209,7 +211,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           <div>
             <div className="px-3 text-[10px] font-bold font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5 flex items-center justify-between">
               <span>AI & Automation</span>
-              <span className="text-[9px] font-mono theme-text-primary font-semibold">Roadmap</span>
+              <span className="text-[9px] font-mono text-[#C43D27] dark:text-[#E05A44] font-semibold">Roadmap</span>
             </div>
             <div className="space-y-0.5">
               {futureModules.map((mod) => {
@@ -218,13 +220,13 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                   <button
                     key={mod.id}
                     onClick={() => handleFutureClick(mod.label, mod.phase)}
-                    className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs font-medium text-slate-500 dark:text-slate-500 hover:text-slate-800 dark:hover:text-slate-300 hover:bg-[#F5F2E9] dark:hover:bg-slate-800/40 transition-colors cursor-pointer"
+                    className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-[#FAF8F3] dark:hover:bg-[#172B52] transition-colors cursor-pointer"
                   >
                     <div className="flex items-center gap-2.5">
                       <Icon className="w-4 h-4 text-slate-400 dark:text-slate-500" />
                       <span>{mod.label}</span>
                     </div>
-                    <span className="text-[9px] font-mono font-semibold px-1.5 py-0.2 rounded bg-[#F0ECE2] dark:bg-slate-800 text-slate-600 dark:text-slate-400 border border-[#E5DFD0] dark:border-slate-700">
+                    <span className="text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded bg-[#FAF8F3] dark:bg-[#172B52] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-[#243B53]">
                       {mod.phase}
                     </span>
                   </button>
@@ -249,14 +251,14 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                     onClick={() => handleTabClick(tab.id as AppTab)}
                     className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
                       isActive
-                        ? 'theme-btn-secondary shadow-2xs font-bold'
-                        : 'text-slate-700 dark:text-slate-300 hover:bg-[#F2ECE1] dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                        ? 'bg-slate-800 dark:bg-[#172B52] text-white shadow-xs font-bold'
+                        : 'text-slate-700 dark:text-slate-300 hover:bg-[#FAF8F3] dark:hover:bg-[#172B52] hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
                       <Icon
                         className={`w-4 h-4 ${
-                          isActive ? 'text-white' : 'text-slate-400 dark:text-slate-400'
+                          isActive ? 'text-white' : 'text-slate-500 dark:text-slate-400'
                         }`}
                       />
                       <span>{tab.label}</span>
@@ -284,8 +286,8 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                     onClick={() => handleTabClick(tab.id as AppTab)}
                     className={`w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs font-medium transition-colors cursor-pointer ${
                       isActive
-                        ? 'bg-[#EAE4D7] dark:bg-slate-800 text-slate-900 dark:text-white font-bold'
-                        : 'text-slate-600 dark:text-slate-400 hover:bg-[#F2ECE1] dark:hover:bg-slate-800 hover:text-slate-900 dark:hover:text-white'
+                        ? 'bg-[#FAF8F3] dark:bg-[#172B52] text-[#C43D27] dark:text-[#E05A44] font-bold'
+                        : 'text-slate-600 dark:text-slate-400 hover:bg-[#FAF8F3] dark:hover:bg-[#172B52] hover:text-slate-900 dark:hover:text-white'
                     }`}
                   >
                     <div className="flex items-center gap-2.5">
@@ -300,25 +302,27 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         </div>
 
         {/* Pinned Bottom Sidebar Footer */}
-        <div className="shrink-0 p-3 border-t border-[#EFEBE0] dark:border-slate-800 bg-[#FFFEFA] dark:bg-slate-900 text-2xs text-slate-400 dark:text-slate-500">
+        <div className="shrink-0 p-3 border-t border-slate-100 dark:border-[#1C2E4C] bg-white dark:bg-[#101F3D] text-2xs text-slate-500 dark:text-slate-400">
           <div className="flex items-center justify-between">
-            <span className="font-mono">CLINICFIRST v1.0</span>
+            <span className="font-mono font-bold text-slate-800 dark:text-slate-200">CLINICFIRST</span>
             <div className="flex items-center gap-1.5">
               <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-xs" title="System Operational" />
-              <span className="font-semibold text-slate-600 dark:text-slate-400">Operational</span>
+              <span className="font-semibold text-slate-700 dark:text-slate-300">Operational</span>
             </div>
           </div>
         </div>
       </aside>
 
       {/* Main Content Viewport */}
-      <div className="flex-1 flex flex-col min-w-0">
+      <div className="flex-1 flex flex-col min-w-0 bg-[#FFFFFF] dark:bg-[#0A1128]">
         {/* Top Operational Bar */}
-        <header className="bg-[#FFFEFA] dark:bg-slate-900 border-b border-[#E8E3D7] dark:border-slate-800 px-4 sm:px-6 lg:px-8 py-3.5 sticky top-0 z-20 shadow-2xs flex items-center justify-between transition-colors">
+        <header className="bg-white dark:bg-[#101F3D] border-b border-slate-200 dark:border-[#1C2E4C] px-4 sm:px-6 lg:px-8 py-3.5 sticky top-0 z-20 shadow-xs flex items-center justify-between transition-colors">
           <div className="flex items-center gap-3">
             <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white capitalize">
               {activeTab === 'dashboard'
                 ? 'Clinic Overview'
+                : activeTab === 'receptionist'
+                ? 'AI Voice Receptionist (Gemini Live)'
                 : activeTab === 'testsuite'
                 ? 'Engine Test Suite'
                 : activeTab === 'schema'
@@ -332,9 +336,9 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             {/* Symbolic Double-Booking Guard Badge */}
             <div
               title="Double-Booking Guard Active (Atomic Concurrency Protected)"
-              className="hidden sm:inline-flex items-center justify-center p-1.5 rounded-lg theme-badge cursor-help"
+              className="hidden sm:inline-flex items-center justify-center p-1.5 rounded-lg bg-[#FAF8F3] dark:bg-[#172B52] text-[#C43D27] dark:text-[#E05A44] border border-slate-200 dark:border-[#243B53] cursor-help"
             >
-              <ShieldCheck className="w-4 h-4" />
+              <ShieldCheck className="w-4 h-4 text-[#C43D27] dark:text-[#E05A44]" />
             </div>
           </div>
 
@@ -343,16 +347,16 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             <ThemeSwitcher />
 
             {/* Live Header Clock */}
-            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#F5F2E9] dark:bg-slate-800 border border-[#E8E3D7] dark:border-slate-700 text-slate-700 dark:text-slate-300 font-mono text-2xs sm:text-xs">
-              <Clock className="w-3.5 h-3.5 text-slate-400" />
-              <span className="font-medium">{currentTime}</span>
-              <span className="text-[10px] text-slate-400 font-sans">IST</span>
+            <div className="hidden sm:flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#FAF8F3] dark:bg-[#172B52] border border-slate-200 dark:border-[#243B53] text-slate-700 dark:text-slate-300 font-mono text-2xs sm:text-xs">
+              <Clock className="w-3.5 h-3.5 text-slate-500" />
+              <span className="font-bold text-slate-900 dark:text-white">{currentTime}</span>
+              <span className="text-[10px] text-slate-500 dark:text-slate-400 font-sans font-semibold">IST</span>
             </div>
 
             {/* Operational Connectivity Indicator */}
             <div
               title="System Connected & Operational"
-              className="flex items-center justify-center p-2 rounded-lg bg-[#F5F2E9] dark:bg-slate-800 border border-[#E8E3D7] dark:border-slate-700 cursor-help"
+              className="flex items-center justify-center p-2 rounded-lg bg-[#FAF8F3] dark:bg-[#172B52] border border-slate-200 dark:border-[#243B53] cursor-help"
             >
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-xs" />
             </div>
@@ -361,7 +365,7 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             <button
               id="header-book-appointment-btn"
               onClick={onOpenBooking}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 theme-btn-primary text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
+              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#C43D27] hover:bg-[#B03420] text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
             >
               <PlusCircle className="w-4 h-4" />
               <span>Book Appointment</span>
@@ -370,10 +374,11 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         </header>
 
         {/* Content Area */}
-        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 bg-[#FFFFFF] dark:bg-[#0A1128]">
           {children}
         </main>
       </div>
+
 
       {/* Planned Feature Architecture Modal */}
       {showFutureModal && (

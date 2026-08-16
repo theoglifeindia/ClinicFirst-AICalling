@@ -17,7 +17,7 @@ export const BrandHeader: React.FC<BrandHeaderProps> = ({ currentTab, onNavigate
   ];
 
   return (
-    <header className="bg-white dark:bg-slate-900 border-b border-slate-200 dark:border-slate-800 sticky top-0 z-30 shadow-2xs transition-colors">
+    <header className="bg-white dark:bg-[#101F3D] border-b border-slate-200 dark:border-[#1C2E4C] sticky top-0 z-30 shadow-2xs transition-colors">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16">
           {/* Logo & Tagline */}
@@ -28,8 +28,8 @@ export const BrandHeader: React.FC<BrandHeaderProps> = ({ currentTab, onNavigate
             >
               <ClinicFirstLogo size="md" />
             </button>
-            <div className="hidden lg:block h-6 w-px bg-slate-200 dark:bg-slate-800" />
-            <span className="hidden lg:inline-block text-xs font-medium text-slate-500 dark:text-slate-400">
+            <div className="hidden lg:block h-6 w-px bg-[#D9E2EC] dark:bg-[#243B53]" />
+            <span className="hidden lg:inline-block text-xs font-medium text-[#486581] dark:text-slate-400">
               AI Reception & Patient Communication
             </span>
           </div>
@@ -43,10 +43,10 @@ export const BrandHeader: React.FC<BrandHeaderProps> = ({ currentTab, onNavigate
                   <button
                     key={link.id}
                     onClick={() => onNavigate(link.id)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition-colors cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-colors cursor-pointer ${
                       isActive
-                        ? 'bg-[#003865] dark:bg-slate-800 text-white'
-                        : 'text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800'
+                        ? 'bg-[#0A2540] text-white dark:bg-white dark:text-[#0A2540]'
+                        : 'text-[#334E68] hover:text-[#0A2540] hover:bg-[#F0F4F8] dark:text-slate-300 dark:hover:text-white dark:hover:bg-[#172B52]'
                     }`}
                   >
                     {link.label}
@@ -56,14 +56,14 @@ export const BrandHeader: React.FC<BrandHeaderProps> = ({ currentTab, onNavigate
 
               <button
                 onClick={() => onNavigate('dashboard')}
-                className="ml-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#008768] hover:bg-[#007055] active:bg-[#005842] text-white text-xs font-bold rounded-lg shadow-2xs transition-colors cursor-pointer"
+                className="ml-2 inline-flex items-center gap-1.5 px-3.5 py-1.5 bg-[#0A2540] hover:bg-[#001D36] text-white dark:bg-white dark:text-[#0A2540] dark:hover:bg-slate-100 text-xs font-bold rounded-lg shadow-2xs transition-colors cursor-pointer"
               >
                 <span>Clinic Engine</span>
                 <ArrowRight className="w-3.5 h-3.5" />
               </button>
             </nav>
 
-            <div className="pl-2 border-l border-slate-200 dark:border-slate-700">
+            <div className="pl-2 border-l border-slate-200 dark:border-[#243B53]">
               <ThemeSwitcher />
             </div>
           </div>

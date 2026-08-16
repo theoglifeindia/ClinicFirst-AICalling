@@ -65,7 +65,7 @@ export const AboutPage: React.FC<AboutPageProps> = ({ onNavigateToBooking, onNav
         <div className="absolute top-0 right-0 -mt-10 -mr-10 w-80 h-80 rounded-full bg-emerald-400/10 blur-3xl pointer-events-none" />
         <div className="relative max-w-3xl">
           <div className="mb-6">
-            <ClinicFirstLogo size="lg" />
+            <ClinicFirstLogo size="lg" variant="transparent-dark" />
           </div>
           <h1 className="text-3xl sm:text-5xl font-extrabold tracking-tight text-white leading-tight">
             Technology that puts clinics first.

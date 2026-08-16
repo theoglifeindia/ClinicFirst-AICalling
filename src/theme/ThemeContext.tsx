@@ -1,11 +1,11 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
-export type ClinicTheme = 'clinical-dual' | 'serenity-blue' | 'healing-green' | 'dark-night';
+export type ClinicTheme = 'clinical-white' | 'dark-night';
 
 export interface ThemeMeta {
   id: ClinicTheme;
   name: string;
-  category: 'Dual' | 'Blue' | 'Green' | 'Dark';
+  category: 'White' | 'Dark';
   description: string;
   badge: string;
   previewColors: string[];
@@ -13,36 +13,20 @@ export interface ThemeMeta {
 
 export const THEME_OPTIONS: ThemeMeta[] = [
   {
-    id: 'clinical-dual',
-    name: 'Clinical Blue & Green (Default)',
-    category: 'Dual',
-    description: 'Harmonious pairing of Trust Blue & Healing Emerald for balanced clinical workflows.',
-    badge: 'Trust & Healing',
-    previewColors: ['#003865', '#008768'],
-  },
-  {
-    id: 'serenity-blue',
-    name: 'Serenity Blue',
-    category: 'Blue',
-    description: 'Light shades lower anxiety; deep blues project authority, security, and cleanliness. Ideal for primary care and cardiology.',
-    badge: 'Trust & Calm',
-    previewColors: ['#0284C7', '#0369A1'],
-  },
-  {
-    id: 'healing-green',
-    name: 'Healing Sage & Emerald',
-    category: 'Green',
-    description: 'Soft sage and mint greens reduce eye fatigue and stress. Perfect for recovery areas and wellness.',
-    badge: 'Healing & Balance',
-    previewColors: ['#008768', '#10B981'],
+    id: 'clinical-white',
+    name: 'Healthcare Light (Default)',
+    category: 'White',
+    description: 'Clean white primary canvas, soft warm cream sections, charcoal typography, and CLINICFIRST terracotta accents.',
+    badge: 'Light Theme',
+    previewColors: ['#FFFFFF', '#C43D27'],
   },
   {
     id: 'dark-night',
     name: 'Night Shift Mode',
     category: 'Dark',
-    description: 'Ultra-low glare dark slate canvas for night shifts and low-light wards with crystal clear text legibility.',
-    badge: 'Night & Focus',
-    previewColors: ['#0A1325', '#38BDF8'],
+    description: 'Low-glare deep navy canvas for night shifts and low-light wards with crisp contrast.',
+    badge: 'Night Shift',
+    previewColors: ['#0A1128', '#F0F4F8'],
   },
 ];
 
@@ -55,19 +39,19 @@ interface ThemeContextType {
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
-const STORAGE_KEY = 'clinicfirst_theme_v4';
+const STORAGE_KEY = 'clinicfirst_theme_v7_white_navy';
 
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [theme, setThemeState] = useState<ClinicTheme>(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved && (saved === 'clinical-dual' || saved === 'serenity-blue' || saved === 'healing-green' || saved === 'dark-night')) {
+      if (saved && (saved === 'clinical-white' || saved === 'dark-night')) {
         return saved as ClinicTheme;
       }
     } catch {
       // ignore localstorage errors
     }
-    return 'clinical-dual';
+    return 'clinical-white';
   });
 
   const isDark = theme === 'dark-night';
@@ -83,7 +67,7 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 
   const toggleDarkMode = () => {
     if (theme === 'dark-night') {
-      setTheme('clinical-dual');
+      setTheme('clinical-white');
     } else {
       setTheme('dark-night');
     }
@@ -113,3 +97,4 @@ export const useTheme = (): ThemeContextType => {
   }
   return context;
 };
+

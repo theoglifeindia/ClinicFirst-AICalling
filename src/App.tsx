@@ -3,6 +3,7 @@ import { AppLayout, AppTab } from './components/layout/AppLayout';
 import { BookingModal } from './components/BookingModal';
 import { BrandFooter } from './components/brand/BrandFooter';
 import { DashboardPage } from './pages/DashboardPage';
+import { AIReceptionistPage } from './pages/AIReceptionistPage';
 import { AppointmentsPage } from './pages/AppointmentsPage';
 import { DoctorsPage } from './pages/DoctorsPage';
 import { PatientsPage } from './pages/PatientsPage';
@@ -110,6 +111,14 @@ export default function App() {
               todayStr={todayStr}
               onOpenBooking={handleOpenBooking}
               onCancelAppointment={handleCancelAppointment}
+              onNavigateToTab={(tab) => setActiveTab(tab as AppTab)}
+            />
+          )}
+
+          {activeTab === 'receptionist' && (
+            <AIReceptionistPage
+              doctors={doctors}
+              onRefreshData={refreshData}
               onNavigateToTab={(tab) => setActiveTab(tab as AppTab)}
             />
           )}

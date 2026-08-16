@@ -3,199 +3,110 @@
 
 /* Dynamic Theme CSS Variables */
 :root,
-[data-theme="clinical-dual"] {
-  --background: #F7F4EC;
-  --surface: #FFFEFA;
-  --surface-secondary: #F0EDE4;
-  --text-primary: #1E293B;
-  --text-secondary: #64748B;
-  --text-muted: #94A3B8;
-  --border: #E8E3D7;
-  --border-light: #F0ECE2;
+[data-theme="clinical-white"] {
+  --background: #FFFFFF;
+  --surface: #FFFFFF;
+  --surface-secondary: #FAF8F3;
+  --text-primary: #0F172A; /* Dark charcoal */
+  --text-secondary: #334155; /* Slate */
+  --text-muted: #64748B; /* Muted Slate */
+  --border: #E2E8F0;
+  --border-light: #F1F5F9;
 
-  --primary: #008768;
-  --primary-hover: #007055;
-  --primary-active: #005842;
-  --primary-soft: #EBF6F2;
-  --primary-light: #EBF6F2;
-  --primary-muted: #D1EBE3;
-  --primary-border: #A3D9C9;
+  --primary: #C43D27; /* CLINICFIRST Terracotta Brand */
+  --primary-hover: #B03420;
+  --primary-active: #982C1B;
+  --primary-soft: #FAF8F3;
+  --primary-light: #FAF8F3;
+  --primary-muted: #F1F5F9;
+  --primary-border: #E2E8F0;
   
-  --secondary: #003865;
-  --secondary-hover: #002849;
-  --secondary-soft: #EBF2F8;
-  --secondary-light: #E6F0F8;
-  --secondary-border: #BCD5E8;
+  --secondary: #334155;
+  --secondary-hover: #1E293B;
+  --secondary-soft: #FAF8F3;
+  --secondary-light: #FAF8F3;
+  --secondary-border: #E2E8F0;
 
-  --accent: #0284C7;
-  --accent-light: #F0F9FF;
-  --accent-border: #BAE6FD;
+  --accent: #C43D27;
+  --accent-light: #FAF8F3;
+  --accent-border: #E2E8F0;
 
-  --hero-from: #003865;
-  --hero-via: #004D7D;
-  --hero-to: #008768;
+  --hero-from: #FFFFFF;
+  --hero-via: #FAF8F3;
+  --hero-to: #FFFFFF;
 
-  --badge-bg: #E8F5F1;
-  --badge-text: #008768;
-  --badge-border: #A3D9C9;
+  --badge-bg: #FAF8F3;
+  --badge-text: #0F172A;
+  --badge-border: #E2E8F0;
 
-  --success: #008768;
-  --warning: #D97706;
-  --danger: #DC2626;
+  --success: #15803D;
+  --warning: #B45309;
+  --danger: #B91C1C;
 
-  --app-bg: #F7F4EC;
-  --card-bg: #FFFEFA;
-  --text-main: #1E293B;
-}
-
-[data-theme="serenity-blue"] {
-  --background: #F7F4EC;
-  --surface: #FFFEFA;
-  --surface-secondary: #EEF2F6;
-  --text-primary: #1E293B;
-  --text-secondary: #64748B;
-  --text-muted: #94A3B8;
-  --border: #E5E0D4;
-  --border-light: #EFEBE0;
-
-  --primary: #0284C7;
-  --primary-hover: #0369A1;
-  --primary-active: #075985;
-  --primary-soft: #F0F9FF;
-  --primary-light: #F0F9FF;
-  --primary-muted: #E0F2FE;
-  --primary-border: #BAE6FD;
-  
-  --secondary: #0369A1;
-  --secondary-hover: #075985;
-  --secondary-soft: #E0F2FE;
-  --secondary-light: #E0F2FE;
-  --secondary-border: #BAE6FD;
-
-  --accent: #38BDF8;
-  --accent-light: #F0F9FF;
-  --accent-border: #BAE6FD;
-
-  --hero-from: #075985;
-  --hero-via: #0284C7;
-  --hero-to: #38BDF8;
-
-  --badge-bg: #F0F9FF;
-  --badge-text: #0284C7;
-  --badge-border: #BAE6FD;
-
-  --success: #059669;
-  --warning: #D97706;
-  --danger: #DC2626;
-
-  --app-bg: #F7F4EC;
-  --card-bg: #FFFEFA;
-  --text-main: #1E293B;
-}
-
-[data-theme="healing-green"] {
-  --background: #F7F4EC;
-  --surface: #FFFEFA;
-  --surface-secondary: #EDF3EE;
-  --text-primary: #1E293B;
-  --text-secondary: #64748B;
-  --text-muted: #94A3B8;
-  --border: #E5E0D4;
-  --border-light: #EFEBE0;
-
-  --primary: #059669;
-  --primary-hover: #047857;
-  --primary-active: #065F46;
-  --primary-soft: #ECFDF5;
-  --primary-light: #ECFDF5;
-  --primary-muted: #D1FAE5;
-  --primary-border: #A7F3D0;
-  
-  --secondary: #065F46;
-  --secondary-hover: #044E39;
-  --secondary-soft: #D1FAE5;
-  --secondary-light: #D1FAE5;
-  --secondary-border: #A7F3D0;
-
-  --accent: #10B981;
-  --accent-light: #ECFDF5;
-  --accent-border: #A7F3D0;
-
-  --hero-from: #064E3B;
-  --hero-via: #047857;
-  --hero-to: #059669;
-
-  --badge-bg: #ECFDF5;
-  --badge-text: #059669;
-  --badge-border: #A7F3D0;
-
-  --success: #059669;
-  --warning: #D97706;
-  --danger: #DC2626;
-
-  --app-bg: #F7F4EC;
-  --card-bg: #FFFEFA;
-  --text-main: #1E293B;
+  --app-bg: #FFFFFF;
+  --card-bg: #FFFFFF;
+  --text-main: #0F172A;
 }
 
 [data-theme="dark-night"],
 .dark {
-  --background: #0A1325;
-  --surface: #0F1C36;
-  --surface-secondary: #162444;
-  --text-primary: #F8FAFC;
-  --text-secondary: #94A3B8;
-  --text-muted: #64748B;
-  --border: #1E2E4E;
-  --border-light: #182845;
+  --background: #0A1128;
+  --surface: #101F3D;
+  --surface-secondary: #172B52;
+  --text-primary: #F0F4F8;
+  --text-secondary: #BCCCDC;
+  --text-muted: #829AB1;
+  --border: #1C2E4C;
+  --border-light: #15233C;
 
-  --primary: #10B981;
-  --primary-hover: #34D399;
-  --primary-active: #059669;
-  --primary-soft: #064E3B;
-  --primary-light: #064E3B;
-  --primary-muted: #065F46;
-  --primary-border: #047857;
+  --primary: #C43D27;
+  --primary-hover: #D84B34;
+  --primary-active: #B03420;
+  --primary-soft: #1B2A4A;
+  --primary-light: #102A43;
+  --primary-muted: #243B53;
+  --primary-border: #334E68;
   
-  --secondary: #38BDF8;
-  --secondary-hover: #7DD3FC;
-  --secondary-soft: #0C4A6E;
-  --secondary-light: #0C4A6E;
-  --secondary-border: #075985;
+  --secondary: #9FB3C8;
+  --secondary-hover: #D9E2EC;
+  --secondary-soft: #1B2A4A;
+  --secondary-light: #0B132B;
+  --secondary-border: #243B53;
 
-  --accent: #60A5FA;
-  --accent-light: #1E293B;
-  --accent-border: #334155;
+  --accent: #E05A44;
+  --accent-light: #1B2A4A;
+  --accent-border: #243B53;
 
-  --hero-from: #0B1C2D;
-  --hero-via: #092B3A;
-  --hero-to: #09352A;
+  --hero-from: #0A1128;
+  --hero-via: #101F3D;
+  --hero-to: #0A1128;
 
-  --badge-bg: #064E3B;
-  --badge-text: #34D399;
-  --badge-border: #047857;
+  --badge-bg: #1B2A4A;
+  --badge-text: #F0F4F8;
+  --badge-border: #243B53;
 
-  --success: #10B981;
+  --success: #22C55E;
   --warning: #F59E0B;
   --danger: #EF4444;
 
-  --app-bg: #0A1325;
-  --card-bg: #0F1C36;
-  --text-main: #F8FAFC;
+  --app-bg: #0A1128;
+  --card-bg: #101F3D;
+  --text-main: #F0F4F8;
 }
 
 body {
   font-family: 'Manrope', 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background-color: #F7F4EC;
-  color: #1E293B;
+  background-color: #FFFFFF;
+  color: #0F172A;
   transition: background-color 0.2s ease, color 0.2s ease;
 }
 
 .dark body,
 body.dark {
-  background-color: #0A1325;
-  color: #F8FAFC;
+  background-color: #0A1128;
+  color: #F0F4F8;
 }
+
 
 /* Dynamic Theme Utility Classes */
 .theme-btn-primary {

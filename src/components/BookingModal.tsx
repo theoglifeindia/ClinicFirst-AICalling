@@ -180,23 +180,23 @@ export const BookingModal: React.FC<BookingModalProps> = ({
     <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 dark:bg-black/70 backdrop-blur-xs flex items-center justify-center p-4">
       <div
         id="booking-modal-container"
-        className="bg-white dark:bg-slate-900 rounded-2xl shadow-2xl max-w-xl w-full border border-slate-200 dark:border-slate-800 overflow-hidden transition-colors"
+        className="bg-white dark:bg-[#101F3D] rounded-2xl shadow-2xl max-w-xl w-full border border-slate-200 dark:border-[#1C2E4C] overflow-hidden transition-colors"
       >
         {/* Header */}
-        <div className="px-6 py-4 theme-hero-gradient text-white flex justify-between items-center border-b border-slate-700/50">
+        <div className="px-6 py-4 bg-[#FAF8F3] dark:bg-[#172B52] flex justify-between items-center border-b border-slate-200 dark:border-[#1C2E4C]">
           <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-lg bg-white/15 text-white flex items-center justify-center">
+            <div className="w-8 h-8 rounded-xl bg-[#C43D27] text-white flex items-center justify-center shadow-xs">
               <Calendar className="w-4 h-4" />
             </div>
             <div>
-              <h3 className="font-bold text-sm sm:text-base text-white">Book Clinic Appointment</h3>
-              <p className="text-xs text-slate-200">Patient Appointment System</p>
+              <h3 className="font-bold text-sm sm:text-base text-slate-900 dark:text-white">Book Clinic Appointment</h3>
+              <p className="text-xs text-slate-500 dark:text-slate-400">Guaranteed atomic double-booking protected</p>
             </div>
           </div>
           <button
             id="close-booking-modal-btn"
             onClick={handleResetAndClose}
-            className="p-1 rounded-lg text-slate-300 hover:text-white hover:bg-white/10 transition-colors cursor-pointer"
+            className="p-1.5 rounded-lg text-slate-400 hover:text-slate-700 dark:hover:text-white hover:bg-slate-200/60 dark:hover:bg-[#1C2E4C] transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -205,42 +205,42 @@ export const BookingModal: React.FC<BookingModalProps> = ({
         {/* Success Confirmation State */}
         {successResult ? (
           <div className="p-6 text-center space-y-4">
-            <div className="w-14 h-14 rounded-full theme-bg-light theme-text-primary flex items-center justify-center mx-auto shadow-2xs">
+            <div className="w-14 h-14 rounded-full bg-emerald-50 dark:bg-emerald-950/60 text-emerald-600 dark:text-emerald-400 flex items-center justify-center mx-auto shadow-2xs border border-emerald-200 dark:border-emerald-800">
               <CheckCircle2 className="w-8 h-8" />
             </div>
             <div>
               <h4 className="text-lg font-bold text-slate-900 dark:text-white">Appointment Confirmed!</h4>
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">
-                Booking Reference: <span className="font-mono font-medium text-slate-700 dark:text-slate-300">{successResult.id}</span>
+                Booking Reference: <span className="font-mono font-medium text-slate-900 dark:text-white">{successResult.id}</span>
               </p>
             </div>
 
-            <div className="bg-slate-50 dark:bg-slate-800/60 rounded-xl p-4 border border-slate-200 dark:border-slate-700 text-left space-y-2 text-xs sm:text-sm">
+            <div className="bg-[#FAF8F3] dark:bg-[#172B52]/60 rounded-xl p-4 border border-slate-200 dark:border-[#243B53] text-left space-y-2 text-xs sm:text-sm">
               <div className="flex justify-between">
                 <span className="text-slate-500 dark:text-slate-400">Doctor:</span>
-                <span className="font-medium text-slate-900 dark:text-white">
+                <span className="font-bold text-slate-900 dark:text-white">
                   {successResult.doctor_name} ({successResult.doctor_specialty})
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500 dark:text-slate-400">Date:</span>
-                <span className="font-medium text-slate-900 dark:text-white">{formatDisplayDate(successResult.appointment_date)}</span>
+                <span className="font-bold text-slate-900 dark:text-white">{formatDisplayDate(successResult.appointment_date)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500 dark:text-slate-400">Time Slot:</span>
-                <span className="font-bold theme-text-primary">
+                <span className="font-bold text-slate-900 dark:text-white">
                   {formatTo12Hour(successResult.start_time)} - {formatTo12Hour(successResult.end_time)}
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500 dark:text-slate-400">Patient:</span>
-                <span className="font-medium text-slate-900 dark:text-white">
+                <span className="font-bold text-slate-900 dark:text-white">
                   {successResult.patient_name} ({successResult.patient_phone})
                 </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-slate-500 dark:text-slate-400">Source:</span>
-                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono uppercase bg-slate-200 dark:bg-slate-700 text-slate-800 dark:text-slate-200">
+                <span className="inline-flex items-center px-2 py-0.5 rounded text-xs font-mono uppercase bg-white dark:bg-[#101F3D] text-slate-800 dark:text-slate-200 font-bold border border-slate-200 dark:border-[#243B53]">
                   {successResult.source}
                 </span>
               </div>
@@ -253,14 +253,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   setSuccessResult(null);
                   setSelectedSlot('');
                 }}
-                className="flex-1 py-2.5 px-4 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 text-sm font-medium transition-colors cursor-pointer"
+                className="flex-1 py-2.5 px-4 rounded-xl border border-slate-200 dark:border-[#243B53] text-slate-700 dark:text-slate-300 hover:bg-[#FAF8F3] dark:hover:bg-[#172B52] text-sm font-semibold transition-colors cursor-pointer"
               >
                 Book Another Slot
               </button>
               <button
                 id="close-success-modal-btn"
                 onClick={handleResetAndClose}
-                className="flex-1 py-2.5 px-4 rounded-xl theme-btn-primary text-sm font-bold transition-colors shadow-xs cursor-pointer"
+                className="flex-1 py-2.5 px-4 rounded-xl bg-[#C43D27] hover:bg-[#B03420] text-white text-sm font-bold transition-colors shadow-xs cursor-pointer"
               >
                 Done
               </button>
@@ -272,9 +272,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             {errorMsg && (
               <div
                 id="booking-error-banner"
-                className="p-3.5 rounded-xl bg-rose-50 dark:bg-rose-950/60 border border-rose-200 dark:border-rose-800 text-rose-800 dark:text-rose-300 flex items-start gap-2.5 text-xs sm:text-sm animate-shake"
+                className="p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-800 dark:bg-rose-950/60 dark:border-rose-800 dark:text-rose-300 flex items-start gap-2.5 text-xs sm:text-sm animate-shake"
               >
-                <AlertCircle className="w-5 h-5 text-rose-600 dark:text-rose-400 shrink-0 mt-0.5" />
+                <AlertCircle className="w-5 h-5 text-rose-600 shrink-0 mt-0.5" />
                 <div>
                   <p className="font-semibold">Booking Rejected</p>
                   <p className="text-rose-700 dark:text-rose-300 mt-0.5">{errorMsg}</p>
@@ -285,7 +285,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             {/* Doctor & Date Selection */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Select Doctor</label>
+                <label className="block text-xs font-bold text-slate-900 dark:text-white mb-1">Select Doctor</label>
                 <select
                   id="booking-doctor-select"
                   value={doctorId}
@@ -293,10 +293,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     setDoctorId(e.target.value);
                     setSelectedSlot('');
                   }}
-                  className="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-xs sm:text-sm text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400"
+                  className="w-full px-3 py-2 bg-[#FAF8F3] dark:bg-[#172B52] border border-slate-200 dark:border-[#243B53] rounded-lg text-xs sm:text-sm text-slate-900 dark:text-white font-medium focus:bg-white dark:focus:bg-[#101F3D] focus:outline-none focus:ring-2 focus:ring-[#C43D27]/30"
                 >
                   {doctors.map((d) => (
-                    <option key={d.id} value={d.id} className="bg-white dark:bg-slate-900 text-slate-900 dark:text-white">
+                    <option key={d.id} value={d.id} className="bg-white dark:bg-[#101F3D] text-slate-900 dark:text-white">
                       {d.name} ({d.specialty})
                     </option>
                   ))}
@@ -305,9 +305,9 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
               <div>
                 <div className="flex justify-between items-center mb-1">
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">Appointment Date</label>
+                  <label className="block text-xs font-bold text-slate-900 dark:text-white">Appointment Date</label>
                   {isPastSelectedDate && (
-                    <span className="text-[10px] text-rose-600 dark:text-rose-400 font-semibold flex items-center gap-0.5">
+                    <span className="text-[10px] text-rose-600 font-semibold flex items-center gap-0.5">
                       <AlertCircle className="w-3.5 h-3.5" /> Past date not allowed
                     </span>
                   )}
@@ -327,10 +327,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                       setErrorMsg(null);
                     }
                   }}
-                  className={`w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border rounded-lg text-xs sm:text-sm text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-800 focus:outline-none focus:ring-2 ${
+                  className={`w-full px-3 py-2 bg-[#FAF8F3] dark:bg-[#172B52] border rounded-lg text-xs sm:text-sm text-slate-900 dark:text-white font-medium focus:bg-white dark:focus:bg-[#101F3D] focus:outline-none focus:ring-2 ${
                     isPastSelectedDate
-                      ? 'border-rose-400 focus:ring-rose-500 focus:border-rose-500 bg-rose-50/50 dark:bg-rose-950/30'
-                      : 'border-slate-300 dark:border-slate-700 focus:ring-slate-400'
+                      ? 'border-rose-400 focus:ring-rose-500 focus:border-rose-500 bg-rose-50/50'
+                      : 'border-slate-200 dark:border-[#243B53] focus:ring-[#C43D27]/30'
                   }`}
                 />
               </div>
@@ -339,8 +339,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             {/* Slot Picker Grid */}
             <div>
               <div className="flex justify-between items-center mb-1.5">
-                <label className="text-xs font-semibold text-slate-700 dark:text-slate-300 flex items-center gap-1.5">
-                  <Clock className="w-3.5 h-3.5 text-slate-500 dark:text-slate-400" />
+                <label className="text-xs font-bold text-slate-900 dark:text-white flex items-center gap-1.5">
+                  <Clock className="w-3.5 h-3.5 text-[#C43D27] dark:text-[#E05A44]" />
                   <span>Available Time Slots ({selectedDoctor?.name})</span>
                 </label>
                 <span className="text-2xs text-slate-500 dark:text-slate-400 font-mono">
@@ -349,14 +349,14 @@ export const BookingModal: React.FC<BookingModalProps> = ({
               </div>
 
               {loadingSlots ? (
-                <div className="py-6 text-center text-xs text-slate-500 dark:text-slate-400 bg-slate-50 dark:bg-slate-800/50 rounded-xl border border-slate-200 dark:border-slate-700">
-                  <div className="inline-block animate-spin rounded-full h-4 w-4 border-2 border-slate-900 dark:border-slate-100 border-t-transparent mb-1" />
+                <div className="py-6 text-center text-xs text-slate-500 dark:text-slate-400 bg-[#FAF8F3] dark:bg-[#172B52] rounded-xl border border-slate-200 dark:border-[#243B53]">
+                  <div className="inline-block animate-spin rounded-full h-4 w-4 border-2 border-[#C43D27] border-t-transparent mb-1" />
                   <p>Calculating genuine availability...</p>
                 </div>
               ) : isPastSelectedDate ? (
-                <div className="p-4 text-center text-xs text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/40 rounded-xl border border-rose-200 dark:border-rose-800">
-                  <p className="font-semibold flex items-center justify-center gap-1.5 text-rose-800 dark:text-rose-300">
-                    <AlertCircle className="w-4 h-4 text-rose-600 dark:text-rose-400" />
+                <div className="p-4 text-center text-xs text-rose-700 dark:text-rose-300 bg-rose-50 dark:bg-rose-950/60 rounded-xl border border-rose-200 dark:border-rose-800">
+                  <p className="font-semibold flex items-center justify-center gap-1.5 text-rose-800 dark:text-rose-200">
+                    <AlertCircle className="w-4 h-4 text-rose-600" />
                     Back-Dated Booking Prohibited
                   </p>
                   <p className="text-2xs text-rose-600 dark:text-rose-400 mt-1">
@@ -364,7 +364,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                   </p>
                 </div>
               ) : availableSlots.length === 0 ? (
-                <div className="p-4 text-center text-xs text-slate-500 dark:text-slate-400 bg-amber-50 dark:bg-amber-950/40 rounded-xl border border-amber-200 dark:border-amber-800">
+                <div className="p-4 text-center text-xs text-slate-600 dark:text-slate-300 bg-amber-50 dark:bg-amber-950/50 rounded-xl border border-amber-200 dark:border-amber-800">
                   <p className="font-medium text-amber-800 dark:text-amber-300">No working slots available on this date.</p>
                   <p className="text-2xs text-amber-700 dark:text-amber-400 mt-0.5">
                     {selectedDoctor?.name} is only scheduled Monday to Friday (10:00 AM-1:00 PM & 4:00 PM-7:00 PM).
@@ -372,7 +372,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 </div>
               ) : (
                 <div className="space-y-2">
-                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-40 overflow-y-auto p-1 bg-slate-50 dark:bg-slate-800/40 rounded-xl border border-slate-200 dark:border-slate-700">
+                  <div className="grid grid-cols-3 sm:grid-cols-4 gap-2 max-h-40 overflow-y-auto p-1 bg-[#FAF8F3] dark:bg-[#172B52]/60 rounded-xl border border-slate-200 dark:border-[#243B53]">
                     {availableSlots.map((slot) => {
                       const isSelected = selectedSlot === slot;
                       return (
@@ -383,8 +383,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                           onClick={() => setSelectedSlot(slot)}
                           className={`py-2 px-2 text-xs font-medium rounded-lg border text-center transition-all cursor-pointer ${
                             isSelected
-                              ? 'theme-btn-primary shadow-xs font-bold scale-[1.02]'
-                              : 'bg-white dark:bg-slate-800 text-slate-800 dark:text-slate-200 border-slate-200 dark:border-slate-700 hover:border-slate-400 hover:bg-slate-50 dark:hover:bg-slate-700'
+                              ? 'bg-[#C43D27] hover:bg-[#B03420] text-white border-[#C43D27] shadow-xs font-bold scale-[1.02]'
+                              : 'bg-white dark:bg-[#101F3D] text-slate-800 dark:text-slate-200 border-slate-200 dark:border-[#243B53] hover:border-[#C43D27] hover:bg-slate-50 dark:hover:bg-[#1C2E4C]'
                           }`}
                         >
                           {formatTo12Hour(slot)}
@@ -403,10 +403,10 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             </div>
 
             {/* Patient Name and Phone */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1 border-t border-slate-100 dark:border-slate-800">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1 border-t border-slate-100 dark:border-[#1C2E4C]">
               <div>
                 <div className="flex justify-between items-center mb-1">
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-bold text-slate-900 dark:text-white">
                     Patient Full Name <span className="text-rose-500">*</span>
                   </label>
                   <span className="text-[10px] text-slate-400">Letters only</span>
@@ -420,31 +420,31 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     placeholder="e.g. Rohan Gupta"
                     value={patientName}
                     onChange={handleNameChange}
-                    className="w-full pl-9 pr-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-lg text-xs sm:text-sm text-slate-900 dark:text-white focus:bg-white dark:focus:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-400"
+                    className="w-full pl-9 pr-3 py-2 bg-[#FAF8F3] dark:bg-[#172B52] border border-slate-200 dark:border-[#243B53] rounded-lg text-xs sm:text-sm text-slate-900 dark:text-white font-medium placeholder-slate-400 focus:bg-white dark:focus:bg-[#101F3D] focus:outline-none focus:ring-2 focus:ring-[#C43D27]/30"
                   />
                 </div>
               </div>
 
               <div>
                 <div className="flex justify-between items-center mb-1">
-                  <label className="block text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <label className="block text-xs font-bold text-slate-900 dark:text-white">
                     Patient Mobile Number <span className="text-rose-500">*</span>
                   </label>
                   <span
                     className={`text-[10px] font-mono ${
                       patientPhone.length === 10
-                        ? 'text-emerald-600 dark:text-emerald-400 font-semibold'
+                        ? 'text-emerald-600 font-semibold'
                         : patientPhone.length > 0
-                        ? 'text-amber-600 dark:text-amber-400'
+                        ? 'text-amber-600'
                         : 'text-slate-400'
                     }`}
                   >
                     {patientPhone.length}/10 digits
                   </span>
                 </div>
-                <div className="relative flex rounded-lg border border-slate-300 dark:border-slate-700 overflow-hidden bg-slate-50 dark:bg-slate-800 focus-within:bg-white dark:focus-within:bg-slate-800 focus-within:ring-2 focus-within:ring-slate-400">
-                  <div className="flex items-center gap-1 px-2.5 bg-slate-100 dark:bg-slate-700 border-r border-slate-200 dark:border-slate-600 text-xs font-mono font-bold text-slate-700 dark:text-slate-200 select-none">
-                    <Phone className="w-3.5 h-3.5 text-slate-400" />
+                <div className="relative flex rounded-lg border border-slate-200 dark:border-[#243B53] overflow-hidden bg-[#FAF8F3] dark:bg-[#172B52] focus-within:bg-white dark:focus-within:bg-[#101F3D] focus-within:ring-2 focus-within:ring-[#C43D27]/30">
+                  <div className="flex items-center gap-1 px-2.5 bg-slate-100 dark:bg-[#1C2E4C] border-r border-slate-200 dark:border-[#243B53] text-xs font-mono font-bold text-slate-800 dark:text-slate-200 select-none">
+                    <Phone className="w-3.5 h-3.5 text-slate-500" />
                     <span>+91</span>
                   </div>
                   <input
@@ -456,7 +456,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     placeholder="9876543210"
                     value={patientPhone}
                     onChange={handlePhoneChange}
-                    className="w-full px-3 py-2 bg-transparent text-xs sm:text-sm text-slate-900 dark:text-white focus:outline-none font-mono"
+                    className="w-full px-3 py-2 bg-transparent text-xs sm:text-sm text-slate-900 dark:text-white font-medium placeholder-slate-400 focus:outline-none font-mono"
                   />
                 </div>
               </div>
@@ -464,7 +464,7 @@ export const BookingModal: React.FC<BookingModalProps> = ({
 
             {/* Source */}
             <div className="flex items-center justify-between pt-1">
-              <label className="text-xs font-semibold text-slate-700 dark:text-slate-300">Booking Channel / Source</label>
+              <label className="text-xs font-bold text-slate-900 dark:text-white">Booking Channel / Source</label>
               <div className="flex gap-2">
                 {(['dashboard', 'api', 'ai_call'] as const).map((s) => (
                   <button
@@ -473,8 +473,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                     onClick={() => setSource(s)}
                     className={`px-2.5 py-1 text-2xs font-mono uppercase rounded-md border transition-all cursor-pointer ${
                       source === s
-                        ? 'theme-btn-primary font-bold'
-                        : 'bg-white dark:bg-slate-800 text-slate-600 dark:text-slate-300 border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-700/50'
+                        ? 'bg-[#C43D27] text-white border-[#C43D27] font-bold shadow-2xs'
+                        : 'bg-white dark:bg-[#101F3D] text-slate-700 dark:text-slate-300 border-slate-200 dark:border-[#243B53] hover:bg-[#FAF8F3] dark:hover:bg-[#172B52]'
                     }`}
                   >
                     {s}
@@ -484,12 +484,12 @@ export const BookingModal: React.FC<BookingModalProps> = ({
             </div>
 
             {/* Actions */}
-            <div className="flex gap-3 pt-3 border-t border-slate-100 dark:border-slate-800">
+            <div className="flex gap-3 pt-3 border-t border-slate-100 dark:border-[#1C2E4C]">
               <button
                 type="button"
                 id="cancel-booking-form-btn"
                 onClick={handleResetAndClose}
-                className="flex-1 py-2.5 px-4 rounded-xl border border-slate-300 dark:border-slate-700 text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 text-xs sm:text-sm font-medium transition-colors cursor-pointer"
+                className="flex-1 py-2.5 px-4 rounded-xl border border-slate-200 dark:border-[#243B53] text-slate-700 dark:text-slate-300 hover:bg-[#FAF8F3] dark:hover:bg-[#172B52] text-xs sm:text-sm font-semibold transition-colors cursor-pointer"
               >
                 Cancel
               </button>
@@ -499,8 +499,8 @@ export const BookingModal: React.FC<BookingModalProps> = ({
                 disabled={submitting || !selectedSlot}
                 className={`flex-1 py-2.5 px-4 rounded-xl text-white text-xs sm:text-sm font-bold transition-all shadow-xs flex items-center justify-center gap-2 cursor-pointer ${
                   submitting || !selectedSlot
-                    ? 'bg-slate-300 dark:bg-slate-800 text-slate-500 dark:text-slate-600 cursor-not-allowed'
-                    : 'theme-btn-primary'
+                    ? 'bg-slate-300 dark:bg-slate-700 text-slate-500 cursor-not-allowed'
+                    : 'bg-[#C43D27] hover:bg-[#B03420]'
                 }`}
               >
                 {submitting ? (
