@@ -1,6 +1,6 @@
 {
   "name": "Clinic Appointment Engine",
-  "description": "Production-ready AI receptionist appointment booking engine with real-time Gemini Live voice interaction, slot availability calculation, double-booking prevention, and clinic management dashboard.",
+  "description": "Production-ready AI Calling Bot SaaS and receptionist booking engine with multi-workspace isolation, AI agent configuration, telephony calling engine, real-time call tracking, and comprehensive call records.",
   "requestFramePermissions": ["microphone"],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

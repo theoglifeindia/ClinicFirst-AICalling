@@ -21,17 +21,23 @@ import {
   ChevronRight,
   ShieldCheck,
   Clock,
+  Phone,
+  PhoneCall,
 } from 'lucide-react';
 import { ClinicFirstLogo } from '../brand/ClinicFirstLogo';
 import { ThemeSwitcher } from '../theme/ThemeSwitcher';
 import { useTheme } from '../../theme/ThemeContext';
+import { WorkspaceSwitcher } from '../workspace/WorkspaceSwitcher';
+import { useWorkspace } from '../../context/WorkspaceContext';
 
 export type AppTab =
   | 'dashboard'
+  | 'agents'
+  | 'contacts'
+  | 'calls'
   | 'receptionist'
   | 'appointments'
   | 'doctors'
-  | 'patients'
   | 'availability'
   | 'testsuite'
   | 'schema'
@@ -43,6 +49,7 @@ interface AppLayoutProps {
   activeTab: AppTab;
   setActiveTab: (tab: AppTab) => void;
   onOpenBooking: () => void;
+  onStartCall: () => void;
   children: React.ReactNode;
 }
 
@@ -50,11 +57,13 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   activeTab,
   setActiveTab,
   onOpenBooking,
+  onStartCall,
   children,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [showFutureModal, setShowFutureModal] = useState<string | null>(null);
   const { isDark, theme } = useTheme();
+  const { currentWorkspace } = useWorkspace();
 
   // Live Clock (IST)
   const [currentTime, setCurrentTime] = useState<string>(() => {
@@ -84,21 +93,26 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
     return () => clearInterval(timer);
   }, []);
 
-  const activeModules = [
+  // M3 Calling & Voice AI
+  const callingModules = [
     { id: 'dashboard', label: 'Dashboard', icon: LayoutDashboard },
-    { id: 'receptionist', label: 'AI Receptionist', icon: Bot, isLiveVoice: true },
+    { id: 'agents', label: 'AI Voice Agents', icon: Bot, isM3: true },
+    { id: 'contacts', label: 'Contacts & Patients', icon: Users, isM3: true },
+    { id: 'calls', label: 'Call Logs & Transcripts', icon: PhoneCall, isM3: true },
+    { id: 'receptionist', label: 'AI Receptionist Live', icon: Mic },
+  ] as const;
+
+  // Clinic Operations & Scheduling
+  const clinicModules = [
     { id: 'appointments', label: 'Appointments', icon: Calendar },
     { id: 'doctors', label: 'Doctors & Shifts', icon: Stethoscope },
-    { id: 'patients', label: 'Patients Directory', icon: Users },
     { id: 'availability', label: 'Slot Explorer', icon: CheckCircle2 },
   ] as const;
 
   const futureModules = [
-    { id: 'ai-agents', label: 'AI Agents', icon: Bot, phase: 'Phase 2' },
-    { id: 'workflows', label: 'Workflows', icon: GitBranch, phase: 'Phase 7' },
-    { id: 'campaigns', label: 'Campaigns', icon: Megaphone, phase: 'Phase 8' },
+    { id: 'workflows', label: 'Workflows & Nodes', icon: GitBranch, phase: 'Phase 7' },
+    { id: 'campaigns', label: 'Outbound Broadcasts', icon: Megaphone, phase: 'Phase 8' },
     { id: 'knowledge-base', label: 'Knowledge Base', icon: BookOpen, phase: 'Phase 5' },
-    { id: 'voice-library', label: 'Voice Library', icon: Mic, phase: 'Phase 6' },
   ];
 
   const verificationModules = [
@@ -124,16 +138,19 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
   return (
     <div className="min-h-screen bg-[#FFFFFF] dark:bg-[#0A1128] flex flex-col md:flex-row text-slate-900 dark:text-[#F0F4F8] font-sans transition-colors duration-200">
       {/* Mobile Header */}
-      <div className="md:hidden bg-white dark:bg-[#101F3D] border-b border-slate-200 dark:border-[#1C2E4C] px-4 py-3 flex items-center justify-between sticky top-0 z-40 shadow-xs">
-        <ClinicFirstLogo size="sm" />
+      <div className="md:hidden bg-white dark:bg-[#101F3D] border-b border-slate-200 dark:border-[#1C2E4C] px-3 py-2.5 flex items-center justify-between sticky top-0 z-40 shadow-xs">
         <div className="flex items-center gap-2">
+          <ClinicFirstLogo size="sm" />
+          <WorkspaceSwitcher compact />
+        </div>
+        <div className="flex items-center gap-1.5">
           <ThemeSwitcher compact />
           <button
-            onClick={onOpenBooking}
+            onClick={onStartCall}
             className="p-2 bg-[#C43D27] hover:bg-[#B03420] text-white rounded-lg text-xs font-bold transition-colors cursor-pointer"
-            aria-label="Book Appointment"
+            aria-label="Start AI Call"
           >
-            <PlusCircle className="w-4 h-4" />
+            <Phone className="w-4 h-4" />
           </button>
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -147,38 +164,35 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
 
       {/* Sidebar Navigation */}
       <aside
-        className={`fixed md:sticky top-0 z-30 h-screen w-64 bg-white dark:bg-[#101F3D] border-r border-slate-200 dark:border-[#1C2E4C] flex flex-col shrink-0 transition-transform duration-200 ease-in-out overflow-hidden shadow-xs ${
+        className={`fixed md:sticky top-0 z-30 h-screen w-64 bg-white dark:bg-[#101F3D] border-r border-slate-200 dark:border-[#1C2E4C] flex flex-col shrink-0 transition-transform duration-200 ease-in-out shadow-xs ${
           mobileMenuOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
       >
         {/* Pinned Top Brand Header */}
-        <div className="shrink-0 p-5 border-b border-slate-100 dark:border-[#1C2E4C] bg-white dark:bg-[#101F3D]">
+        <div className="shrink-0 p-4 border-b border-slate-100 dark:border-[#1C2E4C] bg-white dark:bg-[#101F3D]">
           <div className="p-1 rounded-lg">
             <ClinicFirstLogo size="md" />
           </div>
-          <div className="mt-2 text-[11px] font-medium text-slate-500 dark:text-slate-400 tracking-tight leading-tight">
-            AI Reception & Patient Communication
+          <div className="mt-1.5 text-[11px] font-medium text-slate-500 dark:text-slate-400 tracking-tight leading-tight">
+            AI Voice Calling & Clinic Scheduling
           </div>
 
-          {/* Clinic Context Badge */}
-          <div className="mt-3.5 p-2.5 rounded-xl bg-[#FAF8F3] dark:bg-[#172B52] border border-slate-200 dark:border-[#243B53] flex items-center justify-between">
-            <div>
-              <div className="text-xs font-bold text-slate-900 dark:text-white truncate">Demo Clinic</div>
-              <div className="text-[10px] text-slate-500 dark:text-slate-400 font-mono">Nagpur • Asia/Kolkata</div>
-            </div>
-            <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-2xs" title="System Operational" />
+          {/* Workspace Switcher Component */}
+          <div className="mt-3">
+            <WorkspaceSwitcher />
           </div>
         </div>
 
         {/* Scrollable Navigation Menu Sections */}
-        <div className="flex-1 overflow-y-auto min-h-0 px-3 py-4 space-y-6 bg-white dark:bg-[#101F3D]">
-          {/* Active Clinic Operations */}
+        <div className="flex-1 overflow-y-auto min-h-0 px-3 py-4 space-y-5 bg-white dark:bg-[#101F3D]">
+          {/* Calling Engine & AI Management (M3) */}
           <div>
-            <div className="px-3 text-[10px] font-bold font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
-              Clinic Operations
+            <div className="px-3 text-[10px] font-bold font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+              <span>Calling & AI Engine</span>
+              <span className="text-[9px] font-mono text-[#C43D27] font-bold">M3</span>
             </div>
             <div className="space-y-0.5">
-              {activeModules.map((tab) => {
+              {callingModules.map((tab) => {
                 const Icon = tab.icon;
                 const isActive = activeTab === tab.id;
                 return (
@@ -207,28 +221,35 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             </div>
           </div>
 
-          {/* Future Modules Section */}
+          {/* Clinic Operations & Appointments */}
           <div>
-            <div className="px-3 text-[10px] font-bold font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5 flex items-center justify-between">
-              <span>AI & Automation</span>
-              <span className="text-[9px] font-mono text-[#C43D27] dark:text-[#E05A44] font-semibold">Roadmap</span>
+            <div className="px-3 text-[10px] font-bold font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
+              Clinic Operations
             </div>
             <div className="space-y-0.5">
-              {futureModules.map((mod) => {
-                const Icon = mod.icon;
+              {clinicModules.map((tab) => {
+                const Icon = tab.icon;
+                const isActive = activeTab === tab.id;
                 return (
                   <button
-                    key={mod.id}
-                    onClick={() => handleFutureClick(mod.label, mod.phase)}
-                    className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-[#FAF8F3] dark:hover:bg-[#172B52] transition-colors cursor-pointer"
+                    key={tab.id}
+                    id={`sidebar-tab-${tab.id}`}
+                    onClick={() => handleTabClick(tab.id as AppTab)}
+                    className={`w-full flex items-center justify-between px-3 py-2 rounded-xl text-xs font-semibold transition-colors cursor-pointer ${
+                      isActive
+                        ? 'bg-[#C43D27] text-white shadow-xs font-bold'
+                        : 'text-slate-700 dark:text-slate-300 hover:bg-[#FAF8F3] dark:hover:bg-[#172B52] hover:text-slate-900 dark:hover:text-white'
+                    }`}
                   >
                     <div className="flex items-center gap-2.5">
-                      <Icon className="w-4 h-4 text-slate-400 dark:text-slate-500" />
-                      <span>{mod.label}</span>
+                      <Icon
+                        className={`w-4 h-4 ${
+                          isActive ? 'text-white' : 'text-slate-500 dark:text-slate-400'
+                        }`}
+                      />
+                      <span>{tab.label}</span>
                     </div>
-                    <span className="text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded bg-[#FAF8F3] dark:bg-[#172B52] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-[#243B53]">
-                      {mod.phase}
-                    </span>
+                    {isActive && <ChevronRight className="w-3.5 h-3.5 text-white/80" />}
                   </button>
                 );
               })}
@@ -270,10 +291,38 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             </div>
           </div>
 
+          {/* Future Modules Section */}
+          <div>
+            <div className="px-3 text-[10px] font-bold font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5 flex items-center justify-between">
+              <span>Automation</span>
+              <span className="text-[9px] font-mono text-slate-400">Roadmap</span>
+            </div>
+            <div className="space-y-0.5">
+              {futureModules.map((mod) => {
+                const Icon = mod.icon;
+                return (
+                  <button
+                    key={mod.id}
+                    onClick={() => handleFutureClick(mod.label, mod.phase)}
+                    className="w-full flex items-center justify-between px-3 py-1.5 rounded-xl text-xs font-medium text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white hover:bg-[#FAF8F3] dark:hover:bg-[#172B52] transition-colors cursor-pointer"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <Icon className="w-4 h-4 text-slate-400 dark:text-slate-500" />
+                      <span>{mod.label}</span>
+                    </div>
+                    <span className="text-[9px] font-mono font-semibold px-1.5 py-0.5 rounded bg-[#FAF8F3] dark:bg-[#172B52] text-slate-600 dark:text-slate-300 border border-slate-200 dark:border-[#243B53]">
+                      {mod.phase}
+                    </span>
+                  </button>
+                );
+              })}
+            </div>
+          </div>
+
           {/* Resources & Help */}
           <div>
             <div className="px-3 text-[10px] font-bold font-mono text-slate-400 dark:text-slate-500 uppercase tracking-wider mb-1.5">
-              Resources & About
+              Resources
             </div>
             <div className="space-y-0.5">
               {publicResources.map((tab) => {
@@ -304,10 +353,10 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
         {/* Pinned Bottom Sidebar Footer */}
         <div className="shrink-0 p-3 border-t border-slate-100 dark:border-[#1C2E4C] bg-white dark:bg-[#101F3D] text-2xs text-slate-500 dark:text-slate-400">
           <div className="flex items-center justify-between">
-            <span className="font-mono font-bold text-slate-800 dark:text-slate-200">CLINICFIRST</span>
+            <span className="font-mono font-bold text-slate-800 dark:text-slate-200">CLINICFIRST M3</span>
             <div className="flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-xs" title="System Operational" />
-              <span className="font-semibold text-slate-700 dark:text-slate-300">Operational</span>
+              <span className="w-2 h-2 rounded-full bg-emerald-500 shadow-xs" title="Calling Engine Operational" />
+              <span className="font-semibold text-slate-700 dark:text-slate-300">Carrier Ready</span>
             </div>
           </div>
         </div>
@@ -320,7 +369,13 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           <div className="flex items-center gap-3">
             <h2 className="text-sm sm:text-base font-bold text-slate-900 dark:text-white capitalize">
               {activeTab === 'dashboard'
-                ? 'Clinic Overview'
+                ? 'Calling & Clinic Overview'
+                : activeTab === 'agents'
+                ? 'AI Voice Agents'
+                : activeTab === 'contacts'
+                ? 'Contacts & Patients'
+                : activeTab === 'calls'
+                ? 'Call Logs & Transcripts'
                 : activeTab === 'receptionist'
                 ? 'AI Voice Receptionist (Gemini Live)'
                 : activeTab === 'testsuite'
@@ -329,8 +384,10 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
                 ? 'Clinical Rules & Specifications'
                 : activeTab === 'availability'
                 ? 'Doctor Slot Explorer'
-                : activeTab === 'patients'
-                ? 'Patients & Contacts'
+                : activeTab === 'appointments'
+                ? 'Appointments Schedule'
+                : activeTab === 'doctors'
+                ? 'Doctors & Shift Timings'
                 : activeTab}
             </h2>
             {/* Symbolic Double-Booking Guard Badge */}
@@ -343,6 +400,11 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           </div>
 
           <div className="flex items-center gap-2 sm:gap-2.5">
+            {/* Header Clinic Workspace Switcher */}
+            <div className="hidden lg:block">
+              <WorkspaceSwitcher compact />
+            </div>
+
             {/* Theme Switcher */}
             <ThemeSwitcher />
 
@@ -353,21 +415,23 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
               <span className="text-[10px] text-slate-500 dark:text-slate-400 font-sans font-semibold">IST</span>
             </div>
 
-            {/* Operational Connectivity Indicator */}
-            <div
-              title="System Connected & Operational"
-              className="flex items-center justify-center p-2 rounded-lg bg-[#FAF8F3] dark:bg-[#172B52] border border-slate-200 dark:border-[#243B53] cursor-help"
+            {/* Start AI Call Action Button (M3) */}
+            <button
+              id="header-start-call-btn"
+              onClick={onStartCall}
+              className="inline-flex items-center gap-1.5 px-3 py-2 bg-[#C43D27] hover:bg-[#B03420] text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
             >
-              <span className="w-2.5 h-2.5 rounded-full bg-emerald-500 shadow-xs" />
-            </div>
+              <Phone className="w-4 h-4" />
+              <span>Start AI Call</span>
+            </button>
 
             {/* Persistent Primary Booking Action */}
             <button
               id="header-book-appointment-btn"
               onClick={onOpenBooking}
-              className="inline-flex items-center gap-1.5 px-3.5 py-2 bg-[#C43D27] hover:bg-[#B03420] text-white text-xs sm:text-sm font-bold rounded-xl shadow-xs transition-colors cursor-pointer"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-2 bg-[#FAF8F3] dark:bg-[#172B52] hover:bg-slate-100 dark:hover:bg-[#1C2E4C] text-slate-800 dark:text-slate-200 border border-slate-200 dark:border-[#243B53] text-xs sm:text-sm font-bold rounded-xl transition-colors cursor-pointer"
             >
-              <PlusCircle className="w-4 h-4" />
+              <PlusCircle className="w-4 h-4 text-[#C43D27] dark:text-[#E05A44]" />
               <span>Book Appointment</span>
             </button>
           </div>
@@ -378,7 +442,6 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
           {children}
         </main>
       </div>
-
 
       {/* Planned Feature Architecture Modal */}
       {showFutureModal && (
@@ -400,11 +463,11 @@ export const AppLayout: React.FC<AppLayoutProps> = ({
             <div className="p-3 bg-slate-50 dark:bg-slate-800/80 rounded-xl border border-slate-200 dark:border-slate-700 text-2xs text-slate-500 dark:text-slate-400 font-mono space-y-1">
               <div className="flex justify-between">
                 <span>Current Milestone:</span>
-                <span className="text-emerald-700 dark:text-emerald-400 font-bold">Step 1 (Core Engine)</span>
+                <span className="text-emerald-700 dark:text-emerald-400 font-bold">Milestone 3 (Calling Engine)</span>
               </div>
               <div className="flex justify-between">
-                <span>Business Logic:</span>
-                <span className="text-slate-800 dark:text-slate-200">Authoritative & Verified</span>
+                <span>Telephony Provider:</span>
+                <span className="text-slate-800 dark:text-slate-200">Carrier Interface Ready</span>
               </div>
             </div>
 

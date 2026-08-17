@@ -1,13 +1,16 @@
 export type AppointmentStatus = 'confirmed' | 'cancelled' | 'completed' | 'no_show';
 export type AppointmentSource = 'dashboard' | 'api' | 'ai_call';
 
-export interface Clinic {
+// Workspace (Aliased with Clinic for multi-tenant and clinical compatibility)
+export interface Workspace {
   id: string;
   name: string;
   timezone: string;
-  phone: string;
+  phone?: string;
   created_at: string;
 }
+
+export type Clinic = Workspace;
 
 export interface Doctor {
   id: string;
@@ -28,12 +31,98 @@ export interface DoctorAvailability {
   active: boolean;
 }
 
-export interface Patient {
+// Contact model (Extending Patient for unified multi-workspace address book)
+export type ContactStatus = 'active' | 'archived';
+
+export interface Contact {
   id: string;
-  clinic_id: string;
+  workspace_id: string; // or clinic_id
   name: string;
   phone: string;
+  email?: string;
+  status: ContactStatus;
   created_at: string;
+  updated_at?: string;
+}
+
+export type Patient = Contact & {
+  clinic_id: string;
+};
+
+// AI Agent Model
+export interface AIAgent {
+  id: string;
+  workspace_id: string;
+  name: string;
+  description: string;
+  system_prompt: string;
+  greeting_message: string;
+  voice: string;
+  language: string;
+  active: boolean;
+  created_at: string;
+  updated_at: string;
+}
+
+// Call Status Lifecycle
+export type CallStatus =
+  | 'QUEUED'
+  | 'RINGING'
+  | 'CONNECTED'
+  | 'COMPLETED'
+  | 'FAILED'
+  | 'CANCELLED';
+
+export interface TranscriptMessage {
+  id?: string;
+  speaker: 'agent' | 'user' | 'system';
+  text: string;
+  timestamp: string;
+}
+
+// Call Record Model
+export interface CallRecord {
+  id: string;
+  workspace_id: string;
+  agent_id: string;
+  contact_id: string;
+  phone_number: string;
+  status: CallStatus;
+  started_at: string;
+  connected_at?: string;
+  ended_at?: string;
+  duration: number; // in seconds
+  provider_call_id: string;
+  transcript: TranscriptMessage[];
+  summary?: string;
+  failure_reason?: string;
+  created_at: string;
+  updated_at: string;
+
+  // Joined presentation fields
+  agent_name?: string;
+  agent_voice?: string;
+  contact_name?: string;
+  contact_email?: string;
+  workspace_name?: string;
+}
+
+export interface CallFilter {
+  workspace_id?: string;
+  agent_id?: string;
+  contact_id?: string;
+  status?: CallStatus | 'ALL';
+  search?: string;
+  date_from?: string;
+  date_to?: string;
+}
+
+export interface CallMetrics {
+  total_calls: number;
+  completed_calls: number;
+  failed_calls: number;
+  active_calls: number;
+  average_duration_seconds: number;
 }
 
 export interface Appointment {
@@ -95,3 +184,4 @@ export interface AppointmentFilter {
   status?: AppointmentStatus;
   search?: string;
 }
+
